@@ -31,8 +31,8 @@ export default defineUserConfig({
     navbar:
     [
       { text: '首页', link: '/' }, //对应readme文件
-      { text: '分类', link: '/categories/reco/1/' },
-      { text: '标签', link: '/tags/tag1/1/' },
+      { text: '分类', link: '/categories/vite/1/' },
+      { text: '标签', link: '/tags/vite/1/' },
       { text: '文档',
         children: [
           { text: 'vuepress-reco', link: '/docs/theme-reco/theme' },
