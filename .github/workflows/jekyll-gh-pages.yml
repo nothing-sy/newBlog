@@ -1,5 +1,4 @@
 name: build Blog for github pages
-permissions: write-all
 on:
   push:
     branches:
@@ -7,7 +6,7 @@ on:
 jobs:
   publish_blog:
     name: publish blog
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
