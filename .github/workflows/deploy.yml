@@ -19,7 +19,7 @@ jobs:
       uses: actions/upload-pages-artifact@v1.0.7
       with:
         name: gh-pages
-        path: .vuepress/dist
+        path: .vuepress/dist/
       
     
       
