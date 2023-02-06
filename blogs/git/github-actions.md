@@ -106,6 +106,7 @@ jobs: #事务/作业 可以有多个作业，它不是数组而是一个对象
 
     #上述操作的 步骤 actions/upload-pages-artifact 和部署actions/deploy-pages@v1.2.4 可以使用以下第三方action一步完成，
     # 但是考虑到毕竟是官方的，就使用两个action处理
+    
     # - name: Deploy to GitHub Pages #将构建好的代码部署到github pages
     #   uses: JamesIves/github-pages-deploy-action@v4.4.1 # 用的是第三方的action 而不是actions组织提供的。因为这个参数比较简单
     #   with:
