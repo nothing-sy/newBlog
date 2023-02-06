@@ -79,7 +79,7 @@ jobs: #事务/作业 可以有多个作业，它不是数组而是一个对象
     - name: Deploy to GitHub Pages #将构建好的代码部署到github pages
       uses: JamesIves/github-pages-deploy-action@v4.4.1 # 用的是第三方的action 而不是actions组织提供的。因为这个参数比较简单
       with:
-        token: ${{ secrets.TOKEN }} # 为了有操作分支的权限，需要创建一个secret token
+      #  token: ${{ secrets.TOKEN }} # 如果你想跨仓库部署，你需要增加一个token已获得权限，此处为同一仓库，不需要
         folder: .vuepress/dist # 需要部署的文件目录，这个就是vuepress-reco的构建目录
       # branch: gh-pages #部署到哪个分支，这是默认值，这个action的原理就是将.vuepress/dist目录的内容，拷贝到创建的gh-pages分支的根目录，所以到时候会多出一个remote 分支，里面的代码就是 vuepress/dist目录下的内容
 ```
