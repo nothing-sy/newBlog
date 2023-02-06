@@ -20,10 +20,10 @@ jobs:
         npm i
         npm run build
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      uses: actions/upload-pages-artifact@v1.0.7
       with:
-        token: ${{ secrets.TOKEN }}
-        folder: .vuepress/dist
+        name: gh-pages
+        path: .vuepress/dist
       
     
       
