@@ -76,20 +76,41 @@ jobs: #事务/作业 可以有多个作业，它不是数组而是一个对象
       run: | # run | 的写法表示后面的内容都作为字符串执行，此处就是正常的安装依赖和构建
         npm i
         npm run build
-    - name: Deploy to GitHub Pages #将构建好的代码部署到github pages
-      uses: JamesIves/github-pages-deploy-action@v4.4.1 # 用的是第三方的action 而不是actions组织提供的。因为这个参数比较简单
+    - name: Deploy to GitHub Pages # 将对应目录打包成名为 github-pages的文件
+      uses: actions/upload-pages-artifact@v1.0.7
       with:
-      #  token: ${{ secrets.TOKEN }} # 如果你想跨仓库部署，你需要增加一个token已获得权限，此处为同一仓库，不需要
-        folder: .vuepress/dist # 需要部署的文件目录，这个就是vuepress-reco的构建目录
-      # branch: gh-pages #部署到哪个分支，这是默认值，这个action的原理就是将.vuepress/dist目录的内容，拷贝到创建的gh-pages分支的根目录，所以到时候会多出一个remote 分支，里面的代码就是 vuepress/dist目录下的内容
+        name: github-pages
+        path: .vuepress/dist/
+
+  # Deploy job
+  deploy:
+    # Add a dependency to the build job
+    needs: publish_blog
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1.2.4 # 将上一步打包好的github-pages的文件，上传到githubpages
+
+    #上述操作的 步骤 actions/upload-pages-artifact 和部署actions/deploy-pages@v1.2.4 可以使用以下第三方action一步完成，但是考虑到毕竟是官方的，就使用两个action处理
+     # - name: Deploy to GitHub Pages #将构建好的代码部署到github pages
+    #   uses: JamesIves/github-pages-deploy-action@v4.4.1 # 用的是第三方的action 而不是actions组织提供的。因为这个参数比较简单
+    #   with:
+    #   #  token: ${{ secrets.TOKEN }} # 如果你想跨仓库部署，你需要增加一个token已获得权限，此处为同一仓库，不需要
+    #     folder: .vuepress/dist # 需要部署的文件目录，这个就是vuepress-reco的构建目录
+    #   # branch: gh-pages #部署到哪个分支，这是默认值，这个action的原理就是将.vuepress/dist目录的内容，拷贝到创建的gh-pages分支的根目录，所以到时候会多出一个remote 分支，里面的代码就是 vuepress/dist目录下的内容
       
       
-      # 你也可以使用官方actions提供的这个action，建议如果在actions能找到可用的action就用官方的，比较稳定
-      #- name: Deploy to GitHub Pages
-      #uses: actions/upload-pages-artifact@v1.0.7
-      #with:
-      #  name: gh-pages
-      #  path: .vuepress/dist
 ```
 :::
 ::::
