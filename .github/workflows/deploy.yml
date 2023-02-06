@@ -18,7 +18,7 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: actions/upload-pages-artifact@v1.0.7
       with:
-        name: master
+        name: github-pages
         path: .vuepress/dist/
 
   # Deploy job
@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v1.2.4
       
     
       
