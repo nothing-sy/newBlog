@@ -127,3 +127,11 @@ jobs: #事务/作业 可以有多个作业，它不是数组而是一个对象
 这样，当我们push代码到主分支，action监听到 on push事件，就会开始工作流。
 自动构建并部署到gh-pages分支，github pages就完成了更新
 :::
+
+:::warning ！注意
+默认情况下，只要项目设置了github pages, GitHub Pages 将默认使用 Jekyll 生成站点
+在上述情况中，因为我们已经自定义了actions去处理，所以我们要把默认的workflow关掉，以免每次提交代码都有默认的工作流，以及一个
+我们自定义的工作流。
+
+关掉默认工作流的方法就是在根目录新增一个`.nojekyll` 的空文件
+:::
