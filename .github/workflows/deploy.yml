@@ -29,7 +29,7 @@ jobs:
     # Deploy to the github-pages environment
     environment:
       name: github-pages
-      url: https://www.baidu.com
+      url: ${{ steps.deployment.outputs.page_url }}
     # Specify runner + deployment step
     runs-on: ubuntu-latest
     steps:
