@@ -27,13 +27,13 @@ categories:
 
 **github pages**
 
-github pages的基本配置就是指定两个条件
-1、 以哪个分支作为pages分支
-2、 以哪个目录作为pages的根目录，只有两个选项 1: root根目录 2: /docs
+github pages的部署方式有两种
+1、通过默认的部署方式，指定分支和目录即可
+2、通过actions自动化构建
 
-如果使用比较笨的方法，可以在本地build 构建完成后把.vuepress/dist目录下的内容移到根目录的 docs目录，但是vuepress-reco2.x有个约定blogs和docs目录默认为博客和文档目录，所以会有冲突。
+如果使用第一种方式部署，因为vuepress-reco2.x的dist目录不在根目录，而在/.vuepress/dist，所以用第一种方式不是很妥当，总要构建完成后，将静态文件存放到/root或者/docs， 这会影响我们仓库本身的目录结构，而且也很复杂，每次发布博客都要手动打包并移动目录
 
-因此，希望能有一个完整的构建流程，省去我迁移目录步骤的方法
+因此，希望能有一个完整的构建流程，省去我迁移目录步骤的方法，这个方法就是创建工作流，也就是我们说的用github actions配置
 
 ### workflows
 
