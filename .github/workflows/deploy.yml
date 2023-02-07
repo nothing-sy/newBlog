@@ -15,7 +15,7 @@ jobs:
       run: |
         npm i
         npm run build
-    - name: Deploy to GitHub Pages
+    - name: upload pages artifact
       uses: actions/upload-pages-artifact@v1.0.7
       with:
         name: github-pages
