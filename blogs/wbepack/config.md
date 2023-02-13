@@ -31,8 +31,7 @@ tags:
 const path = require('path');
 
 {
-  context: path.resolve(__dirname, 'src'), //假设定义上下文环境为src目录
-  //而不是 node进程目录（根目录）,则其他路径的配置需要响应变更
+  context: path.resolve(__dirname, 'src'), //假设定义上下文环境为src目录而不是默认的node进程目录（根目录）,则其他路径的配置需要相应变更
   entry: {
     main: {
       dependOn: 'vendor',
@@ -53,7 +52,7 @@ const path = require('path');
 ```
 
 :::tip
-上面的配置中，由于定义了context的路径，则entry以及plugins的路径配置都是相对于src的目录,否则node进程目录为默认值的情况下应该配置为：
+上面的配置中，由于定义了context的路径，则entry以及plugins的路径配置都是相对于src的目录,否则默认情况下应该配置为：
 ```js
 {
 
@@ -86,12 +85,9 @@ const path = require('path');
   entry: { //entry有多种形式，可以是字符串，字符串数组，或者一个对象，具体的官方文档有说明
   main: { //此处主要讲解关于对象形式的描述符
   import: './src/main.js', //入口文件
-  //打包输出的文件名，默认会用[key]作为chunk的名称，这里对应 [key:] main => 生成 main.js，
-  // [name]模板字符串可以参考官方文档output.filename提供的模板
-  filename: '[name]', 
-   //默认情况下，每个入口 chunk 保存了全部其用的模块(modules),这意味着如果你有多个入口文件，
-   //并且都引用了某个模块代码，则这两个入口chunk会重复打包这部分代码。使用 dependOn 选项你可以与另一个入口 chunk 共享模块
-  dependOn: ['vendor']
+  filename: '[name]', //打包输出的文件名，默认会用[key]作为chunk的名称，这里对应 [key:] main => 生成 main.js，[name]模板字符串可以参考官方文档output.filename提供的模板
+  
+  dependOn: ['vendor']//默认情况下，每个入口 chunk 保存了全部其用的模块(modules),这意味着如果你有多个入口文件，并且都引用了某个模块代码，则这两个入口chunk会重复打包这部分代码。使用 dependOn 选项你可以与另一个入口 chunk 共享模块
   },
   vendor: './src/vendor.js',
 
