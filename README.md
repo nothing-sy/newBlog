@@ -16,5 +16,4 @@ banner: # banner 模块的配置
 blog: # blog 模块的配置
   socialLinks: # 社交地址
     - { icon: 'LogoGithub', link: 'https://github.com/nothing-sy' }
-    
 ---
