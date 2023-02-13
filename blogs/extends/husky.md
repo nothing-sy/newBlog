@@ -11,12 +11,13 @@ categories:
 
 根据官网安装husky，Create a hook。
 至此基本的文件已经完成，项目下会有一个.husky目录
+```md
  -.husky
   -_
     -.gitignore
     -husky.sh
   -pre-commit //这里就是安装husky以后创建的钩子，可以在里面写命令。加入你的项目中安装了eslit或者tsc工具，你的pre-commit内容可以为下面示例
-
+```
 ```bash
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
