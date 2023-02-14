@@ -163,17 +163,18 @@ module.exports = (env, argv) => {
 ### chunkFilename
 >非初始化chunk的文件名称，可以用占位符定义[name]...， 除设置chunkFilename以外，也可以在导入动态chunk的时候使用魔术注释 `import(/* webpackChunkName: "vendor" */'x.js')`。 魔术注释名称优先级 > chunkFilename
 
+
 :::warning
 由于webpack很多配置，部分配置可以达到相似的效果，因此理解基本的chunk概念对于使用这些配置有很好的帮助。比如使用动态导入方式，生成一个chunk，但是这种加载方式如果作为一个共享的代码块，会被执行多次，比如
 
-::::code-group
-:::code-group-item vendor.js
+:::: code-group
+::: code-group-item vendor.js
 ```js
 export const vendor = '我是vendor'
 console.log('我是vendor')
 ```
 :::
-:::code-group-item index.js
+::: code-group-item index.js
 ```js
 import('./vendor').then(res => {
   console.log('我是index输出',res.vendor)
@@ -181,7 +182,7 @@ import('./vendor').then(res => {
 
 ```
 :::
-:::code-group-item test.js
+::: code-group-item test.js
 ```js
 import('./vendor').then(res => {
   console.log('我是test输出',res.vendor)
@@ -189,6 +190,7 @@ import('./vendor').then(res => {
 
 ```
 :::
+
 ::::
 
 
