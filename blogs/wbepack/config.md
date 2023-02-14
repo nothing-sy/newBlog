@@ -150,11 +150,11 @@ module.exports = (env, argv) => {
 :::tip
 在开始之前，我们应该理解chunk的概念，chunk是[块]的意思，源文件为一个个的模块，而chunk则是这些模块的集合。chunk分两种，一种是初始化chunk，一种是非初始化chunk
 
-初始化chunk: initial(初始化) 是入口起点的 main chunk。此 chunk 包含为入口起点指定的所有模块及其依赖项
+**初始化chunk: initial(初始化) 是入口起点的 main chunk。此 chunk 包含为入口起点指定的所有模块及其依赖项**
 
-非初始chunk: non-initial 是可以延迟加载的块。可能会出现在使用 动态导入(dynamic imports) 或者 SplitChunksPlugin 时。 前者我们常常在框架路由中体现，比如vue,react的按需加载路由 () => import('xxx.vue')， 或者通过代码分割按需加载的chunk， 比如我们在引入一个文件 import('xxx.js')
+**非初始chunk: non-initial 是可以延迟加载的块。可能会出现在使用 动态导入(dynamic imports) 或者 SplitChunksPlugin做代码分割出来的chunk**
 
-通常情况下，一个入口文件会生成一个chunk，一个bundle文件，但是chunk和bundle不是一个概念，chunk是构建过程中的块。而bundle则是输出文件的结果。比如如果我们开启了sourcemap选项，则一个chunk会生成两个bundle，所以请勿搞混chunk和bundle的概念
+通常情况下，一个入口文件会生成一个chunk，一个bundle文件，但是chunk和bundle不是一个概念，chunk是构建过程中的代码块。而bundle则是输出文件的结果。比如如果我们开启了sourcemap选项，则一个chunk会生成两个bundle，所以请勿搞混chunk和bundle的概念
 :::
 
 
@@ -163,35 +163,17 @@ module.exports = (env, argv) => {
 ### chunkFilename
 >非初始化chunk的文件名称，可以用占位符定义[name]...， 除设置chunkFilename以外，也可以在导入动态chunk的时候使用魔术注释 `import(/* webpackChunkName: "vendor" */'x.js')`。 魔术注释名称优先级 > chunkFilename
 
+:::tip
+谈到了chunk，那这里需要顺便提一下关于`optimization.splitChunks`,详情可以查看具体位置，这里只做简单介绍
+默认情况下，webpack已经有了默认的代码分割策略（即只对动态导入的模块进行chunk分割），一般情况下对于initial chunk，父子chunk都会被打包到一起，而动态导入的模块，则会被作为新的chunk打包。 而splitChunks则是对现有默认分割策略做配置，其中 `splitChunks.chunks`就是设置分割模式： 'all' | 'initial' | 'async'， 表示是对不同类型的chunk做分割策略，如果选择all，则会两者都会处理，不管是动态导入还是静态导入。
 
-:::warning
-由于webpack很多配置，部分配置可以达到相似的效果，因此理解基本的chunk概念对于使用这些配置有很好的帮助。比如使用动态导入方式，生成一个chunk，但是这种加载方式如果作为一个共享的代码块，会被执行多次，比如
+指定了chunks分chunk模式后，还有其他的一些配置选项配合使用，比如设置了 'initial'之后，为什么N个入口文件公用导入的静态代码还是不会分出到新chunk，有可能是默认配置中`minSize`，指定了新chunk的大小，如果不满足条件，还是会被打包进原来的chunk中，不会单独分割
 
-:::: code-group
-::: code-group-item vendor.js
-```js
-export const vendor = '我是vendor'
-console.log('我是vendor')
-```
-:::
-::: code-group-item index.js
-```js
-import('./vendor').then(res => {
-  console.log('我是index输出',res.vendor)
-})
+后续再详细介绍slitChunks的内容，这里只简单讲解下
 
-```
-:::
-::: code-group-item test.js
-```js
-import('./vendor').then(res => {
-  console.log('我是test输出',res.vendor)
-})
-
-```
 :::
 
-::::
+
 
 
 
