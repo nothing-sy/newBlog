@@ -113,3 +113,90 @@ const path = require('path');
 
 
 ## Mode 模式
+
+> mode配置就三个： development | production | none
+指定构建的版本是什么模式，不同模式，webpack内部做了一些配置优化， none则是不做任何优化，如果没有设置，webpack 会给 mode 的默认值设置为 production。
+大多数情况，我们在开发时候使用development，生产环境使用production即可
+
+*mode的配置方式除了可以配置mode属性，也可以在cli中使用`webpack --mode=development`*
+
+:::tip
+如果要根据 webpack.config.js 中的 mode 变量更改打包行为，则必须将配置导出为函数，而不是导出对象
+```js
+var config = {
+  entry: './app.js',
+  //...
+};
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    config.devtool = 'source-map';
+  }
+
+  if (argv.mode === 'production') {
+    //...
+  }
+
+  return config;
+};
+```
+:::
+
+## output 输出配置
+
+>output 位于对象最顶级键(key)，包括了一组选项，指示 webpack 如何去输出、以及在哪里输出你的「bundle、asset 和其他你所打包或使用 webpack 载入的任何内容」
+
+
+:::tip
+在开始之前，我们应该理解chunk的概念，chunk是[块]的意思，源文件为一个个的模块，而chunk则是这些模块的集合。chunk分两种，一种是初始化chunk，一种是非初始化chunk
+
+初始化chunk: initial(初始化) 是入口起点的 main chunk。此 chunk 包含为入口起点指定的所有模块及其依赖项
+
+非初始chunk: non-initial 是可以延迟加载的块。可能会出现在使用 动态导入(dynamic imports) 或者 SplitChunksPlugin 时。 前者我们常常在框架路由中体现，比如vue,react的按需加载路由 () => import('xxx.vue')， 或者通过代码分割按需加载的chunk， 比如我们在引入一个文件 import('xxx.js')
+
+通常情况下，一个入口文件会生成一个chunk，一个bundle文件，但是chunk和bundle不是一个概念，chunk是构建过程中的块。而bundle则是输出文件的结果。比如如果我们开启了sourcemap选项，则一个chunk会生成两个bundle，所以请勿搞混chunk和bundle的概念
+:::
+
+
+### assetModuleFilename
+### asyncChunks
+### chunkFilename
+>非初始化chunk的文件名称，可以用占位符定义[name]...， 除设置chunkFilename以外，也可以在导入动态chunk的时候使用魔术注释 `import(/* webpackChunkName: "vendor" */'x.js')`。 魔术注释名称优先级 > chunkFilename
+
+:::warning
+由于webpack很多配置，部分配置可以达到相似的效果，因此理解基本的chunk概念对于使用这些配置有很好的帮助。比如使用动态导入方式，生成一个chunk，但是这种加载方式如果作为一个共享的代码块，会被执行多次，比如
+
+::::code-group
+:::code-group-item vendor.js
+```js
+export const vendor = '我是vendor'
+console.log('我是vendor')
+```
+:::
+
+:::code-group-item index.js
+```js
+import('./vendor').then(res => {
+  console.log('我是index输出',res.vendor)
+})
+
+```
+:::
+
+:::code-group-item test.js
+```js
+import('./vendor').then(res => {
+  console.log('我是test输出',res.vendor)
+})
+
+```
+:::
+::::
+
+**上面的代码中,vendor.js会输出两次`我是vendor`**
+
+如果使用别的方式生成chunk,比如单独设置一个入口为vendor, 且其他入口依赖于vendor，这样vendor.js一样会被单独作为一个chunk，且不会重复执行
+
+:::
+
+
