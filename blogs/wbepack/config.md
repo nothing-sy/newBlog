@@ -160,6 +160,29 @@ module.exports = (env, argv) => {
 
 ### assetModuleFilename
 ### asyncChunks
+**创建按需加载的异步 chunk,默认为true，即按需加载的模块都默认创建一个异步chunk**
+
+正常情况下我们是不需要去配置这个东西的，按需加载就创建即可，如果设置成false，则按需加载的代码还是会跟初始化chunk合在一起。
+
+:::tip
+webpack中有很多配置是互相影响/冲突的，其中配置的优先级也难以每个都进行实验。
+比如`output.asyncChunks: false`，设置成按需导入的模块不作为新chunk，但如果你在下面中配置了这些选项，则
+依然会作为新的chunk被打包。
+```js
+ optimization: {
+    splitChunks: {
+       chunks: 'all', //或者initial 
+       minSize: 0
+    }
+  },
+```
+:::
+
+:::tip
+由于各种配置有影响，非必要/非常规的配置，建议以默认配置为主
+:::
+
+
 ### chunkFilename
 >非初始化chunk的文件名称，可以用占位符定义[name]...， 除设置chunkFilename以外，也可以在导入动态chunk的时候使用魔术注释 `import(/* webpackChunkName: "vendor" */'x.js')`。 魔术注释名称优先级 > chunkFilename
 
@@ -169,7 +192,7 @@ module.exports = (env, argv) => {
 
 指定了chunks分chunk模式后，还有其他的一些配置选项配合使用，比如设置了 'initial'之后，为什么N个入口文件公用导入的静态代码还是不会分出到新chunk，有可能是默认配置中`minSize`，指定了新chunk的大小，如果不满足条件，还是会被打包进原来的chunk中，不会单独分割
 
-后续再详细介绍slitChunks的内容，这里只简单讲解下
+后续再详细介绍sliptChunks的内容，这里只简单讲解下
 
 :::
 
