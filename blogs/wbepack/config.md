@@ -173,7 +173,6 @@ export const vendor = '我是vendor'
 console.log('我是vendor')
 ```
 :::
-
 :::code-group-item index.js
 ```js
 import('./vendor').then(res => {
@@ -182,7 +181,6 @@ import('./vendor').then(res => {
 
 ```
 :::
-
 :::code-group-item test.js
 ```js
 import('./vendor').then(res => {
@@ -193,10 +191,5 @@ import('./vendor').then(res => {
 :::
 ::::
 
-**上面的代码中,vendor.js会输出两次`我是vendor`**
-
-如果使用别的方式生成chunk,比如单独设置一个入口为vendor, 且其他入口依赖于vendor，这样vendor.js一样会被单独作为一个chunk，且不会重复执行
-
-:::
 
 
