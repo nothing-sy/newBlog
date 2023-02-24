@@ -4,7 +4,7 @@ date: 2023-02-13
 categories:
  - webpack
 tags:
-  - webpack 5.x
+  - webpack5.x
 ---
 
 :::tip
@@ -80,20 +80,25 @@ const path = require('path');
 
 > 一个需要考虑的规则：每个 HTML 页面都有一个入口起点。单页应用(SPA)：一个入口起点，多页应用(MPA)：多个入口起点
 
+
+
 ```js
 {
   entry: { //entry有多种形式，可以是字符串，字符串数组，或者一个对象，具体的官方文档有说明
   main: { //此处主要讲解关于对象形式的描述符
   import: './src/main.js', //入口文件
   filename: '[name]', //打包输出的文件名，默认会用[key]作为chunk的名称，这里对应 [key:] main => 生成 main.js，[name]模板字符串可以参考官方文档output.filename提供的模板
-  
-  dependOn: ['vendor']//默认情况下，每个入口 chunk 保存了全部其用的模块(modules),这意味着如果你有多个入口文件，并且都引用了某个模块代码，则这两个入口chunk会重复打包这部分代码。使用 dependOn 选项你可以与另一个入口 chunk 共享模块
+  runtime: 'mainRuntime', //这个入口chunk main的运行时环境，在这个chunk构建流程中，如果模块有重用的部分，会缓存起来，并适用缓存。 不同的chunk之间不共用这些缓存，除非配置了同样的runtime
+  dependOn: ['vendor']//The entry points that the current entry point depends on. They must be loaded before this entry point is loaded， 说明这个入口chunk依赖于 指定的chunk， 必须先加载这个chunk， 而且功能类似于runtime，只不过这里指定的是入口chunk的名称，类似于 使用指定入口chunk的运行时环境
   },
   vendor: './src/vendor.js',
 
   }
 }
 ```
+:::warning
+`runtime`配置，当没有这个运行时环境时会主动创建一个运行时环境， 而`dependOn`则不会主动创建， 两者不能同时使用
+:::
 
 :::tip
 对于chunk的名称，配置文件有三个地方影响
@@ -105,6 +110,7 @@ const path = require('path');
 3、2的基础上配置filename属性
 
 4、如果指定了output.filename配置项，则此项会覆盖第2项
+
 
 
 
@@ -158,7 +164,7 @@ module.exports = (env, argv) => {
 :::
 
 
-### assetModuleFilename
+### assetModuleFilename（留空）
 ### asyncChunks
 **创建按需加载的异步 chunk,默认为true，即按需加载的模块都默认创建一个异步chunk**
 
@@ -197,6 +203,23 @@ webpack中有很多配置是互相影响/冲突的，其中配置的优先级也
 :::
 
 
+### fileName
+
+>此选项决定了每个输出 bundle 的名称。这些 bundle 将写入到 output.path 选项指定的目录下。
+对于单个入口起点，filename 会是一个静态名称。
+
+### globalObject
+
+**此项配置适合用于输出类型为一个库的项目**
+
+>当输出为 library 时，尤其是当 libraryTarget 为 'umd'时，此选项将决定使用哪个全局对象来挂载 library。为了使 UMD 构建在浏览器和 Node.js 上均可用，应将 output.globalObject 选项设置为 'this'。对于类似 web 的目标，默认为 self
+
+### module
+
+>以模块类型输出 JavaScript 文件。由于此功能还处于实验阶段，默认禁用。
+当启用时，webpack 会在内部将 output.iife 设置为 false，将 output.scriptType 为 'module'，并将 terserOptions.module 设置为 true
+如果你需要使用 webpack 构建一个库以供别人使用，当 output.module 为 true 时，一定要将 output.libraryTarget 设置为 'module'。
 
 
+### publicPath(留空)
 
