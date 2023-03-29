@@ -257,3 +257,27 @@ display: flow-root;
 - IE盒模型：使用box-sizing: border-box ，则width和height是包含了内边距padding和边框border的宽高
 
 
+## 定位
+
+### 静态定位
+`position`，所有的元素都有默认的定位方式，在正常的布局流中，元素的默认`position`为`static`
+
+### 相对定位
+相对定位是相对于正常布局流中，位置的偏移。 使用属性`position:relative`， 然后通过`left/top/bottom/right`去移动元素位置。
+
+:::tip
+表现形式上，元素在原有布局流的位置上相对偏移了。但是占据的位置还是原来的位置，因此相邻元素位置不会改变
+:::
+
+### 绝对定位
+`position:absolute`，绝对定位是相对于父级容器为非`position:static`的定位。
+
+>如果所有的父元素都没有显式地定义 position 属性，那么所有的父元素默认情况下 position 属性都是 static。结果，绝对定位元素会被包含在初始块容器中。这个初始块容器有着和浏览器视口一样的尺寸，并且`<html>`元素也被包含在这个容器里面。简单来说，绝对定位元素会被放在`<html>`元素的外面，并且根据浏览器视口来定位
+
+:::warning 注意
+当设置为`position:absolute`时，你可以使用top、bottom和left、right 一组相反方向的属性来调节元素的大小，比如left:0; right:0 则宽度为父元素的内容宽度， 一般能预见绝对定位元素宽高的情况下，不使用这种形式设置大小
+:::
+
+### z-index
+
+在绝对定位中，
