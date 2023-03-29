@@ -128,13 +128,6 @@ div p:first-of-type {
 下面一个html结构将用来介绍如何清除浮动
 
 ```html
-<style type="text/css">
-.float{
-  width: 50px;
-  height: 50px;
-}
-
-</style>
 <div class="wrapper">
 <div class="float">浮动块</div> 
 <p>我是紧随其后的P标签，文本块</p>
@@ -147,16 +140,50 @@ div p:first-of-type {
  >假设class为`.float`的块浮动起来了，则它脱离常规文档流，不占据高度，因此`P`标签会占据原来位置，且`P`标签的内容被`.float`块挤到`.float`外面。
  而且因为`float`脱离常规文档流，导致`.wrapper`块的高度由`P`标签撑开，即高度等于P标签高度，因此`.wrapper-after`也会跟着上移，这就是浮动的影响。
 
+
+```html
+<style type="text/css">
+.float{
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+p{
+  clear:left;
+}
+
+</style>
+<div class="wrapper">
+<div class="float">浮动块</div> 
+<p>我是紧随其后的P标签，文本块</p>
+</div>
+<div class="wrapper-after">我是wrapper后面的块</div>
+```
+
+
 clear属性能够赋予某个元素清除浮动对后续元素的影响，我们只需要给不希望被浮动元素影响原来布局的元素，加上clear属性即可，详细参数查看MDN
 
 #### `.wrapper`块添加伪元素::after 清除wrapper块以外的浮动
 
-```css
+```html
+<style type="text/css">
+.float{
+  width: 50px;
+  height: 50px;
+  float: left;
+}
 .wrapper::after{
 content: "";
 display:block;
 clear: both;
 }
+
+</style>
+<div class="wrapper">
+<div class="float">浮动块</div> 
+<p>我是紧随其后的P标签，文本块</p>
+</div>
+<div class="wrapper-after">我是wrapper后面的块</div>
 ```
 这种方式可以清除wrapper块相邻元素的浮动影响，并不能清除内部影响
 
@@ -165,14 +192,68 @@ clear: both;
 
 可是使用`overflow`设置成非visible以外的属性，可以使`.wrapper`块生成BFC，这样能正确计算wrapper内容的高度，使得对wrapper外的元素没有影响，但是内部内容还是会被影响
 
+```html
+<style type="text/css">
+.float{
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+.wrapper{
+overflow:auto;
+}
+
+</style>
+<div class="wrapper">
+<div class="float">浮动块</div> 
+<p>我是紧随其后的P标签，文本块</p>
+</div>
+<div class="wrapper-after">我是wrapper后面的块</div>
+```
+
 #### `display: flow-root`
 
-可以给`.wrapper`设置这个属性，相当于overflow的优化方案，对wrapper内部的元素还是有影响，只是清楚了外部浮动的影响
+可以给`.wrapper`设置这个属性，相当于overflow的优化方案，对wrapper内部的元素还是有影响，只是清楚了`.wrapper`相邻元素浮动的影响
+
+```html
+<style type="text/css">
+.float{
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+.wrapper{
+display: flow-root;
+}
+
+</style>
+<div class="wrapper">
+<div class="float">浮动块</div> 
+<p>我是紧随其后的P标签，文本块</p>
+</div>
+<div class="wrapper-after">我是wrapper后面的块</div>
+```
 
 ## 盒子模型
 
-## 水平布局
+### 盒子模型包含的内容
+一个盒子模型包含外边距，内边距，边框，内容。
 
-## flex布局
+>在这里最好也解释下内部 和 外部 显示类型。如上所述，css 的 box 模型有一个外部显示类型，来决定盒子是块级还是内联。
 
-## grid布局
+同样盒模型还有**内部显示类型**，它决定了盒子内部元素是如何布局的。默认情况下是按照 **正常文档流**布局，也意味着它们和其他块元素以及内联元素一样 (如上所述).
+
+但是，我们可以通过使用类似 flex 的 display 属性值来更改内部显示类型。如果设置 display: flex，在一个元素上，外部显示类型是 block，但是内部显示类型修改为 flex。该盒子的所有直接子元素都会成为 flex 元素，会根据弹性盒子（Flexbox）规则进行布局， 还有grid等布局
+
+:::tip
+也就是说display属性，对应了各种盒子的外部和内部显示类型。比如 `display:block`外部显示类型是 `块`，内部是普通的文档流布局。如果是`display:flex`则外部是`块`显示类型，内部是行内布局为`flex布局`，如果是`display:grid`外部显示为`块`类型，内部为`grid`布局， 还有其他可选值参考mdn
+:::
+
+### 标准盒子模型和IE盒子模型
+
+盒子模型 包含标准盒模型和IE盒模型：
+
+- 标准盒模型： 设置width和height实际是指content内容块的宽高
+- IE盒模型：使用box-sizing: border-box ，则width和height是包含了内边距padding和边框border的宽高
+
+
