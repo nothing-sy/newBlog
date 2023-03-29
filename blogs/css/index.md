@@ -116,6 +116,59 @@ div p:first-of-type {
 
 ```
 
+## 浮动
+
+所有的元素都可以浮动，只需要增加`float`样式，浮动的特点是，被设置浮动的元素，会脱离常规文档流，直到碰到其他浮动元素或者父容器的内容边为止。
+
+### 浮动的影响
+由于浮动元素脱离了常规文档流，所以其他元素会占据其原来的位置，但是内容区域会被浮动元素挡在外面。这是浮动元素的特性（典型文字围绕图像），如果要清除浮动元素对后续元素产生的影响，则需要使用clearfix技巧
+
+### 清除浮动
+
+下面一个html结构将用来介绍如何清除浮动
+
+```html
+<style type="text/css">
+.float{
+  width: 50px;
+  height: 50px;
+}
+
+</style>
+<div class="wrapper">
+<div class="float">浮动块</div> 
+<p>我是紧随其后的P标签，文本块</p>
+</div>
+<div class="wrapper-after">我是wrapper后面的块</div>
+```
+
+ #### `clear`清除浮动
+
+ >假设class为`.float`的块浮动起来了，则它脱离常规文档流，不占据高度，因此`P`标签会占据原来位置，且`P`标签的内容被`.float`块挤到`.float`外面。
+ 而且因为`float`脱离常规文档流，导致`.wrapper`块的高度由`P`标签撑开，即高度等于P标签高度，因此`.wrapper-after`也会跟着上移，这就是浮动的影响。
+
+clear属性能够赋予某个元素清除浮动对后续元素的影响，我们只需要给不希望被浮动元素影响原来布局的元素，加上clear属性即可，详细参数查看MDN
+
+#### `.wrapper`块添加伪元素::after 清除wrapper块以外的浮动
+
+```css
+.wrapper::after{
+content: "";
+display:block;
+clear: both;
+}
+```
+这种方式可以清除wrapper块相邻元素的浮动影响，并不能清除内部影响
+
+
+#### `overflow为非visible`
+
+可是使用`overflow`设置成非visible以外的属性，可以使`.wrapper`块生成BFC，这样能正确计算wrapper内容的高度，使得对wrapper外的元素没有影响，但是内部内容还是会被影响
+
+#### `display: flow-root`
+
+可以给`.wrapper`设置这个属性，相当于overflow的优化方案，对wrapper内部的元素还是有影响，只是清楚了外部浮动的影响
+
 ## 盒子模型
 
 ## 水平布局
