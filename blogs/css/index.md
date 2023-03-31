@@ -360,6 +360,22 @@ display: flow-root;
 查看详情：[媒体查询](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Media_Queries)
 
 
+## `display`属性
+
+详情请看[display属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display)
+
+:::tip
+CSS display 属性设置元素是否被视为块或者内联元素以及用于子元素的布局，例如流式布局、网格布局或弹性布局。
+
+形式上，display 属性设置元素的内部和外部的显示类型。外部类型设置元素参与流式布局；内部类型设置子元素的布局。一些 display 值在它们自己的单独规范中完整定义；例如，在 CSS 弹性盒模型的规范中，定义了声明 display: flex 时会发生的细节
+:::
+
+:::tip
+备注： 浏览器支持双值语法，当仅发现外部值时，例如当指定 display: block 或 display: inline，其将内部值设置为 flow。这种行为是预期的；例如，如果你指定一个元素是块元素，你将期望该元素的子元素将同块和内联元素一样参与正常的流布局。
+:::
+
+
+
 ## 块级上下文 BFC (block formatting contexts)
 
 
@@ -381,11 +397,20 @@ display: flow-root;
 - 元素属性 column-span 设置为 all
 
 :::tip 注意
+
 块级上下文大致的概念是：以html为基础理解，html内的元素将按照一定的方式排列和处理元素，即我们所说的正常的文档流。其中包含了 `块元素`和`内联元素`在正常文档流中的表现，html就是一个大的块级上下文。
 
 **当元素脱离了正常的文档流，或这元素内部布局方式改变，不同于文档流，则它创建了一个新的BFC。**
+:::
 
-从上面这句话，我们可以把列表中产生BFC的列表分类
+:::warning
+在开始对*什么时候会生成新的BFC*之前，我们先来了解一下另一个概念，盒子模型的外部显示类型和内部显示类型。即display属性赋予盒子的内外表现形式。请参考该篇文章中的`display`介绍
+
+当对盒子内部外部类型有了了解后，再对生成BFC的方式进行分类，会有帮助
+
+:::
+
+我们可以把列表中产生BFC的列表分类
 
 - 脱离普通文档流，产生新的BFC
   - float
@@ -396,4 +421,5 @@ display: flow-root;
   - display: table-cell （改变了元素内部显示类型）
   - display: flex | grid （改变了元素内部显示类型）
   - display: flow-root （应用于清除浮动，实际是创建一个BFC，指定内部元素按普通文档流布局）
-:::
+
+
