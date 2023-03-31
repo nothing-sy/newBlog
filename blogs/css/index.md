@@ -359,3 +359,19 @@ display: flow-root;
 
 查看详情：[媒体查询](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Media_Queries)
 
+
+## `display`属性
+
+详情请看[display属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display)
+
+:::tip
+CSS display 属性设置元素是否被视为块或者内联元素以及用于子元素的布局，例如流式布局、网格布局或弹性布局。
+
+形式上，display 属性设置元素的内部和外部的显示类型。外部类型设置元素参与流式布局；内部类型设置子元素的布局。一些 display 值在它们自己的单独规范中完整定义；例如，在 CSS 弹性盒模型的规范中，定义了声明 display: flex 时会发生的细节
+:::
+
+:::tip
+备注： 浏览器支持双值语法，当仅发现外部值时，例如当指定 display: block 或 display: inline，其将内部值设置为 flow。这种行为是预期的；例如，如果你指定一个元素是块元素，你将期望该元素的子元素将同块和内联元素一样参与正常的流布局。
+:::
+
+
