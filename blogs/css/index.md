@@ -347,3 +347,53 @@ display: flow-root;
 :::tip
 当两个堆叠上下文 z-index一致的时候，顺序较后的元素，展示在上面。
 :::
+
+
+## 多列布局 `column-count`
+
+此处多列布局是指`column-*`属性，通常使用`column-count`或者`column-width`使容器被计算分成多少列，详情查看MDN
+
+## 响应式设计
+
+### 媒体查询
+
+查看详情：[媒体查询](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Media_Queries)
+
+
+## 块级上下文 BFC (block formatting contexts)
+
+
+先来介绍有哪些属性可以生成`块级上下文(BFC)`
+
+除了文档的根元素 (<html>) 之外，还将在以下情况下创建一个新的 BFC：
+
+- 使用float 使其浮动的元素
+- 绝对定位的元素 (包含 position: fixed 或position: sticky
+- 使用以下属性的元素 display: inline-block
+- 表格单元格或使用 display: table-cell, 包括使用 display: table-* 属性的所有表格单元格
+- 表格标题或使用 display: table-caption 的元素
+- 块级元素的 overflow 属性不为 visible
+- 元素属性为 display: flow-root 或 display: flow-root list-item
+- 元素属性为 contain: layout, content, 或 strict
+- flex items
+- 网格布局元素
+- multicol containers
+- 元素属性 column-span 设置为 all
+
+:::tip 注意
+块级上下文大致的概念是：以html为基础理解，html内的元素将按照一定的方式排列和处理元素，即我们所说的正常的文档流。其中包含了 `块元素`和`内联元素`在正常文档流中的表现，html就是一个大的块级上下文。
+
+**当元素脱离了正常的文档流，或这元素内部布局方式改变，不同于文档流，则它创建了一个新的BFC。**
+
+从上面这句话，我们可以把列表中产生BFC的列表分类
+
+- 脱离普通文档流，产生新的BFC
+  - float
+  - 绝对定位（absolute/fixed/sticky）
+- [display属性改变对应外部或内部显示类型](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display) ，产生新的BFC
+  - display: inline （改变了元素外部显示类型）
+  - display: inline-block （改变了元素外部显示类型）
+  - display: table-cell （改变了元素内部显示类型）
+  - display: flex | grid （改变了元素内部显示类型）
+  - display: flow-root （应用于清除浮动，实际是创建一个BFC，指定内部元素按普通文档流布局）
+:::
