@@ -118,7 +118,7 @@ div {
 这里主要讲如何使用mixin
 
 :::: code-group
-::: code-group-item mixin.scss
+::: code-group-item mixin
 ```scss
 @mixin custom-bg {
   color: red;
@@ -126,7 +126,8 @@ div {
 }
 ```
 :::
-::: code-group-item index.vue
+
+::: code-group-item index
 ```vue
 <style lang="scss" scope>
 @import 'xxxxx.mixin.scss'
@@ -136,7 +137,6 @@ div {
 </style>
 ```
 :::
-
 ::::
 
 :::warning 注意
