@@ -85,16 +85,30 @@ div p .custom__left {} //注意此处不会有层级.custom，而是直接.custo
 可以使用如下方式。这样就无需去记一些组合属性的有序和无序问题
 
 ```scss
-  div: {
+  div {
     border:solid {
-      left: 5px;
-      right: 5px;
+      left: 5px red;
+      right: 5px blue;
     }
     margin: {
       left: 5px;
       right: 10px
     }
   }
+
+//会编译成
+```css
+div {
+  border: solid; //记住这个特殊点，但是有些属性因为css本身的问题，编译出来可能不是最佳实践导致样式无效，比如此处三个border样式是无法达到预期的
+  border-left: 5px;
+  border-right: 5px;
+
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+```
+
 ```
 
 
