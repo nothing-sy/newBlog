@@ -381,20 +381,22 @@ CSS display 属性设置元素是否被视为块或者内联元素以及用于�
 
 先来介绍有哪些属性可以生成`块级上下文(BFC)`
 
-除了文档的根元素 (<html>) 之外，还将在以下情况下创建一个新的 BFC：
+除了文档的根元素 (`<html>`) 之外，还将在以下情况下创建一个新的 BFC：
 
-- 使用float 使其浮动的元素
-- 绝对定位的元素 (包含 position: fixed 或position: sticky
-- 使用以下属性的元素 display: inline-block
-- 表格单元格或使用 display: table-cell, 包括使用 display: table-* 属性的所有表格单元格
-- 表格标题或使用 display: table-caption 的元素
-- 块级元素的 overflow 属性不为 visible
-- 元素属性为 display: flow-root 或 display: flow-root list-item
-- 元素属性为 contain: layout, content, 或 strict
-- flex items
-- 网格布局元素
-- multicol containers
-- 元素属性 column-span 设置为 all
+
+- 浮动元素（float 值不为 none）
+- 绝对定位元素（position 值为 absolute 或 fixed）
+- 行内块元素（display 值为 inline-block）
+- 表格单元格（display 值为 table-cell，HTML 表格单元格默认值）
+- 表格标题（display 值为 table-caption，HTML 表格标题默认值）
+- 匿名表格单元格元素（display 值为 table、table-row、 table-row-group、table-header-group、- table-footer-group（分别是 HTML table、tr、tbody、thead、tfoot 的默认值）或 inline-table）
+- overflow 值不为 visible、clip 的块元素
+- display 值为 flow-root 的元素
+- contain 值为 layout、content 或 paint 的元素
+- 弹性元素（display 值为 flex 或 inline-flex 元素的直接子元素），如果它们本身既不是 flex、grid 也不是 table 容- 器
+- 网格元素（display 值为 grid 或 inline-grid 元素的直接子元素），如果它们本身既不是 flex、grid 也不是 table 容- 器
+- 多列容器（column-count 或 column-width (en-US) 值不为 auto，包括column-count 为 1）
+- column-span 值为 all 的元素始终会创建一个新的 BFC，即使该元素没有包裹在一个多列容器中 (规范变更, Chrome bug)
 
 :::tip 注意
 
@@ -415,11 +417,48 @@ CSS display 属性设置元素是否被视为块或者内联元素以及用于�
 - 脱离普通文档流，产生新的BFC
   - float
   - 绝对定位（absolute/fixed/sticky）
-- [display属性改变对应外部或内部显示类型](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display) ，产生新的BFC
-  - display: inline （改变了元素外部显示类型）
-  - display: inline-block （改变了元素外部显示类型）
-  - display: table-cell （改变了元素内部显示类型）
+- [display属性改变内部显示类型以用于脱离正常流式布局或者属性本身就是显式声明要生成一个新的BFC（比如flow-root）](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display) ，产生新的BFC
+  - display: inline-block （改变了元素内部显示类型(原本display:inline实际上是 inline flow)，而inline-block等效于inline flow-root，flow-root即指定内部为正常流式布局，并且该元素为块级上下文的根元素）
+  - display: table-cell，table-*等 （改变了元素内部类型）
   - display: flex | grid （改变了元素内部显示类型）
-  - display: flow-root （应用于清除浮动，实际是创建一个BFC，指定内部元素按普通文档流布局）
+  - display: flow-root （该元素生成一个块级元素盒，其会建立一个新的块级格式化上下文，定义格式化上下文的根元素）
+  - 等等
 
 
+### BFC 布局规则
+
+- 内部的块级元素会在垂直方向，一个接一个地放置；
+- 块级元素垂直方向的距离由margin决定。属于同一个BFC的两个相邻的块级元素会发生margin合并，不属于同一个BFC的两个相邻的块级元素不会发生margin合并；
+:::warning
+**这里提到的相邻元素，个人认为并非单纯代码层面的相邻，而是表现形式的相邻，比如下面demo中的两个`.son`元素margin也是相邻**
+
+因为如果是代码层面的相邻，因为是相邻元素，所以有一个共同父级容器，那么他们永远都是同一个上下文，就会有悖论，
+因此所谓相邻指的是两个元素的margin相邻，正如下面这个demo
+```html
+  <div>
+      <div class="son">111</div>
+  </div>
+  <div>
+    <div class="son">222</div>
+</div>
+```
+:::
+
+- 每个元素的margin box的左边，与包含border box的左边相接触（对于从左往右的格式化，否则相反）。即使存在浮动也是如- 此；
+- BFC的区域不会与float box重叠；
+- BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素；外面的元素也不会影响到容器里面的子元- 素；
+- 计算BFC的高度时，浮动元素也参与计算。（这个常见于我们使用overflow: hidden清除浮动的原因，当浮动元素的父级容器是一个BFC的时候，为了计算父容器高度，浮动元素也会计算进去，那么容器就会被撑开，从而不会影响父容器外面的元素）
+
+
+关于外边距合并，不属于同一个BFC的两个相邻块级元素不会发生margin合并
+
+```html
+  <div>
+      <div class="son">111</div>
+  </div>
+  <div>
+    <div class="son">222</div>
+</div>
+```
+
+当指定上面例子最外层两个div display:flow-root的时候，两个div就生成独自的BFC，那么`.son`就分别属于不同的BFC。就不会有margin重叠的问题，因为当产生BFC的时候，容器计算高度会把子元素margin也算进去，所以.son的margin不会重叠
