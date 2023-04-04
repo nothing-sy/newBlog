@@ -1,5 +1,5 @@
 ---
-title: css基础知识
+title: css部分要点
 date: 2023-03-17
 categories:
  - css
@@ -89,7 +89,7 @@ div *:first-of-type {}
 
 ### :first-child和:first-of-type
 
-这两个伪元素很容易混淆，实际上都是有迹可循，`:first-child`表示指定选择器对象是其父节点的第一个子元素，`:first-of-type`表示指定选择器对象，是其父节点下（同一类对象的第一个子元素）
+这两个伪类很容易混淆，实际上都是有迹可循，`:first-child`表示指定选择器对象是其父节点的第一个子元素，`:first-of-type`表示指定选择器对象，是其父节点下（同一类对象的第一个子元素）
 
 举例：
 
@@ -213,7 +213,7 @@ overflow:auto;
 
 #### `display: flow-root`
 
-可以给`.wrapper`设置这个属性，相当于overflow的优化方案，对wrapper内部的元素还是有影响，只是清楚了`.wrapper`相邻元素浮动的影响
+可以给`.wrapper`设置这个属性，相当于overflow的优化方案，对wrapper内部的元素还是有影响，只是清除了`.wrapper`相邻元素浮动的影响。其实际原理是`flow-root`指定`.wrapper`生成一个BFC，且让`.wrapper`成为类似于`html`标签一样的文档流根元素，让浏览器为元素计算高度，这个高度计算，浮动元素也是会参与的，因此能确保内部不会因为子元素浮动导致`.wrapper`高度塌陷，从而影响`.wrapper`的相邻元素，具体可以看本章BFC的内容
 
 ```html
 <style type="text/css">
