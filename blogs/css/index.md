@@ -114,7 +114,30 @@ div p:first-of-type {
   background:red;
 }
 
+/**一些其他重要例子：
+<div  class="dialog__body">
+      <div class="title">1111</div>
+      <div class="title">2222</div>
+      <div class="title">2222111</div>
+      <div class="another">
+        
+        <p class="title">3333</p>
+        <p class="title">44444</p>
+        <p class="title">5555</p>
+      </div>
+      <p class="p">pppp</p>
+    </div>
+
+*/
+/**这里查找应该理解为： 找寻.dialog__body下的 .title类所有兄弟元素类型(这里是div和p两种类型)， 然后再去寻找last-of-type，即这两种类型的最后一个元素，且class为.title。 (先找到.another的div，他是div类型中最后一个，再找到.p，他就是p类型唯一一个，是第一个也是最后一个)，然后再从这两个元素中找类为.title的元素。没有匹配上的，所以这里一个都没匹配上*/
+/**如果条件中少了 > 这个查找直接子元素的条件，则会继续查找子元素中满足条件的子元素（深层次的查找），比如会去查找.another的所有子元素（因为子元素中有.title），再找到最后一个元素，且类为.title。这里找到内容为 5555的p元素 */
+.dialog__body > .title:last-of-type{
+    color: aquamarine;
+   }
+
 ```
+
+
 
 ## 浮动
 
