@@ -5,6 +5,7 @@
  
 <style lang='scss' scoped>
 div{
+  height: 200px;
   background-color: black;
   font-size: 100px;
   font-weight: 500;
