@@ -11,3 +11,4 @@ categories:
 
 
 ## 水杯效果 clip-path
+@[preview](@/.vuepress/vue-previews/Cup.vue)

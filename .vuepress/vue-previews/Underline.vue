@@ -13,6 +13,7 @@
     background-repeat: no-repeat;
     background-size: 0 5px;
     background-position: right bottom;
+    transition: background-size 0.3s linear;
   
   }
   span:hover{
