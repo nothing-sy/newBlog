@@ -7,4 +7,4 @@ categories:
 
 ## 下划线动效
 
-@[preview](@/docs/.vuepress/vue-previews/css/Underline.vue)
+@[preview](@/docs/.vuepress/vue-previews/Underline.vue)
