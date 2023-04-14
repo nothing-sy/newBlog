@@ -17,6 +17,7 @@
     
    }
    .cup::before{
+    content: '';
     width: 80px;
     height: 80px;
     position: absolute;
