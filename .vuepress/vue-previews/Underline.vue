@@ -9,7 +9,7 @@
   <style scoped>
   span{
   
-    background: linear-gradient(yellow, red, blue);
+    background: linear-gradient(black);
     background-repeat: no-repeat;
     background-size: 0 5px;
     background-position: right bottom;
