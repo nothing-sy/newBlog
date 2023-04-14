@@ -3,9 +3,7 @@
     Documenting web technologies, including CSS, HTML, and JavaScript, since 2005.
   </span>
   </template>
-   
-  <script  setup lang='ts'>
-  </script>
+
   <style scoped>
   span{
   
