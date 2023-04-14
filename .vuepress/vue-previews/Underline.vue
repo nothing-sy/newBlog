@@ -4,7 +4,7 @@
   </span>
   </template>
 
-  <style scoped>
+  <style lang="scss" scoped>
   span{
   
     background: linear-gradient(black);
