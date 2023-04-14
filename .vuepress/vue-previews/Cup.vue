@@ -17,8 +17,8 @@
     position: relative;
     overflow: hidden;
     clip-path: polygon(-10% 0 ,110% 0, 85% 100%, 15% 100%);
-   }
-   .water{
+    
+    &::before{
     width: 80px;
     height: 80px;
     position: absolute;
@@ -27,6 +27,7 @@
     border-radius: 30%;
     animation: water-loop 4s linear infinite;
     background-color: white;
+    }
    }
 
    @keyframes water-loop {
