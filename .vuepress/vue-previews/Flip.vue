@@ -18,7 +18,7 @@ const revert = async () => {
     item.transform = true
   })
   list.value = reverList
-  
+
  setTimeout(() => {
   list.value = reverList.map(item => {
     return {

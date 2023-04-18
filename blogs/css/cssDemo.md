@@ -31,4 +31,4 @@ P: play 播放动画 将之前设置的translate属性去除，还原排序后�
 以上步骤加起来就会有一个动画效果，看例子
 
 
-@[preview](@/.vuepress/vue-previews/Flip.vue)
+@[code-group](@/.vuepress/vue-previews/Flip.vue)
