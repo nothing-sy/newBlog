@@ -513,7 +513,3 @@ div{
 }
 
 ```
-
-
-@[preview](@/.vuepress/vue-previews/Container.vue)
-
