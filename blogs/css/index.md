@@ -489,12 +489,12 @@ CSS display 属性设置元素是否被视为块或者内联元素以及用于�
 
 ## @container 容器查询
 
-媒体查询是通过检测视窗的宽高来改变样式，而容器查询，则是根据元素的宽高改变样式。凡是使用了container-type属性的元素，都将成为一个容器。
+@media媒体查询是通过检测视窗的宽高来改变样式，而容器查询，则是根据元素的宽高改变样式。凡是使用了container-type属性的元素，都将成为一个容器。
 然后使用@container规则去处理样式。
 
 `container-type: size|inline-size|normal` size指 用于在内联和块轴上以内联和块的尺寸查询，而inline-size则是指内联尺寸查询
-对应如下内容：
-```
+
+```css
 div{
   container-name: box;
   container-type: size;
@@ -512,5 +512,9 @@ div{
   //...
 }
 
-
 ```
+
+效果如下： 
+
+@[preview](@/.vuepress/vue-previews/Container.vue)
+
