@@ -1,6 +1,6 @@
 <template>
 <div>
-<textarea rows="5" cols="5"></textarea>
+<textarea rows="50" cols="20"></textarea>
 <span>调整text-area宽度，这行文字会变颜色</span>
 </div>
   
@@ -8,7 +8,8 @@
  
 <style lang='scss' scoped>
 div{
-  container: box size;
+  container-name: box;
+  container-type: size;
 
 }
 
