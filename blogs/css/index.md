@@ -514,7 +514,6 @@ div{
 
 ```
 
-效果如下： 
 
 @[preview](@/.vuepress/vue-previews/Container.vue)
 
