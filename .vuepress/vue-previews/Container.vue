@@ -1,6 +1,6 @@
 <template>
 <div>
-<textarea rows="50" cols="20"></textarea>
+<textarea rows="5" cols="15"></textarea>
 <span>调整text-area宽度，这行文字会变颜色</span>
 </div>
   
@@ -10,6 +10,7 @@
 div{
   container-name: box;
   container-type: size;
+  height: 500px;
 
 }
 
