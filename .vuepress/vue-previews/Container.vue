@@ -1,7 +1,6 @@
 <template>
 <div>
-
-<text-area></text-area>
+<textarea rows="5" cols="5"></textarea>
 <span>调整text-area宽度，这行文字会变颜色</span>
 </div>
   
