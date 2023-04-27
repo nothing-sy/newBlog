@@ -9,11 +9,37 @@ categories:
 > vue3的响应API很多，ref,reactive,readonly,shallow....等等，导致数据的响应类型也增多，而vue2只要知道这是一个响应的数据即可，不管数据是引用类型还是基本数据类型，都能以统一的方式处理，比如watch和computed。  因此，在学习vue3过程中导致对数据类型掌握不准确，无法清晰知道数据能否响应或被监听
 
 ### props
-关于传入的属性，通过defineProps宏函数处理过后，会返回一个proxy对象，结合之前学习的reactive处理数据成proxy对象，就会误以为，被代理后的数据，只要属性是一个对象，也会同样被处理成proxy这样一个误区
+关于传入的属性，通过defineProps宏函数处理过后，会返回一个proxy对象，结合之前学习的reactive处理数据成proxy对象，就会【误以为】，被代理后的数据，只要属性是一个对象，也会同样被处理成proxy这样一个误区
 
-在经过一系列的观察以后，发现defineProps是个编译器宏，并非一个真正的函数，我们在定义的时候，只是单纯的作为一个引用，而并非是生成新的响应数据
+在经过一系列的观察以后，发现defineProps虽然把props处理成了proxy但是并不是使用了类似于reactive的方式，在get捕获器中也将值为对象的对象转变成proxy.
 
-比如说：
+以下是vue3的源码中的一段
+```js
+  /**
+   * Used to create a proxy for the rest element when destructuring props with
+   * defineProps().
+   * @internal
+   */
+  function createPropsRestProxy(props, excludedKeys) {
+      const ret = {};
+      for (const key in props) {
+          if (!excludedKeys.includes(key)) {
+              Object.defineProperty(ret, key, {
+                  enumerable: true,
+                  get: () => props[key]
+              });
+          }
+      }
+      return ret;
+  }
+```
+:::warning 结论！
+
+上述代码中很明确的表示，当使用defineProps()时会使用这个方法处理。 它将返回一个proxy，但是该proxy的get方法只是单纯的返回了props[key]，
+这意味着，props传入的时候本身是什么类型，那就返回什么类型。并不会像reactive一样做深度处理，把值为对象的属性继续转换成proxy对象
+
+:::
+
 
 
 ```js
