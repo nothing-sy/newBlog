@@ -28,6 +28,9 @@ https://developer.chrome.com/docs/extensions/
 
 包含以下几个步骤，具体的看谷歌开发文档就行
 1、新增一个manifest.json文件，该文件配置了插件的版本，以及对应的文件目录。
+
+manifest.json配置字段参考： https://developer.chrome.com/docs/extensions/mv3/manifest/
+
 ```
 {
   "manifest_version": 3, //插件的版本（指谷歌插件开发本身的版本号，类似vue2,vue3）
