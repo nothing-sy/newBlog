@@ -194,14 +194,11 @@ window.onload = () => {
 由于谷歌浏览器中如果要发布一个插件，是需要注册的，费用为5美元，因此篡改猴的目的就是让用户可以通过篡改猴，去使用更多的脚本（这些脚本的作者不需要注册为谷歌的开发，而是发布到其他平台，比如： greasy fork。），篡改猴就是在这些平台获取脚本，然后执行，以提供各种各样的功能。
 
 
-### 如何发布greasy fork脚本
+### 如何编写篡改猴/油猴插件
 
-前面已经提到greasy fork是一个脚本平台，用户可以在上面发布和搜索脚本。 篡改猴可以通过安装greasy fork的脚本来提供各种能力。
+根据油猴插件的编写文档： [地址](https://www.tampermonkey.net/documentation.php?locale=zh#meta:grant)
 
-那么如何发布greasy fork脚本呢。
+我将github上的谷歌插件仓库，另外改写成了油猴插件的版本，并放到了 [gist](https://gist.github.com/nothing-sy/b6fe077dd151a74d600207bf673f1123) 上面。文件后缀以.user.js 。  点击raw查看文件才会被油猴识别到。
 
-需要到 https://greasyfork.org/zh-CN  ，登录用户后，点击用户名，进去可以看到发布脚本的方法。在此就不详细说明。
 
-在编写篡改猴脚本的时候，篡改猴提供了一些开发文档，允许脚本的使用者使用一些方法或权限： 具体可以查看文档：https://www.tampermonkey.net/documentation.php。
-
-根据文档编写的脚本符合篡改猴的标准，才能被正确安装、运行
+可以通过在各种平台如greasy fork平台， userscipt.zone 或者 openusers、github/gist上面 发布插件
