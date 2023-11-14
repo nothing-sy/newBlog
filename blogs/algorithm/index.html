@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function sort(arrs){
+      let left = 0 , right = arrs.length - 1;
+      for(let i = 0; i < arrs.length; i++) {
+        for(let j = i+1; j < arrs.length; j++) {
+          if(arrs[i] > arrs[j]) {
+            let temp = arrs[i];
+            arrs[i] = arrs[j];
+            arrs[j] = temp;
+        }
+      }
+    }
+    return arrs
+  }
+
+var arr = [1,8,9,5,32,1,2,2,44,3,2]
+console.log(sort(arr))
+
+  </script>
+</body>
+</html>
