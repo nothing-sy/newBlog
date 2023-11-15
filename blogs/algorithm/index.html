@@ -7,22 +7,41 @@
 </head>
 <body>
   <script>
-    function sort(arrs){
-      let left = 0 , right = arrs.length - 1;
-      for(let i = 0; i < arrs.length; i++) {
-        for(let j = i+1; j < arrs.length; j++) {
-          if(arrs[i] > arrs[j]) {
-            let temp = arrs[i];
-            arrs[i] = arrs[j];
-            arrs[j] = temp;
+    /**
+     * 选择排序
+    */
+    function selectSort(arrs){
+      const len = arrs.length;
+      for(let i =0 ; i < len -1; i++) {
+        let min = i
+        for(let j = i+1; j < len;j++){
+          if(arrs[j] < arrs[min]) {
+            min = j
+          }
         }
+        [arrs[i],arrs[min]] = [arrs[min],arrs[i]]
       }
-    }
-    return arrs
+
+console.log(arrs)
   }
 
+  function selectionSort(arr) {
+ const len = arr.length;
+ for (let i = 0; i < len - 1; i++) {
+   let minIndex = i;
+   for (let j = i + 1; j < len; j++) {
+     if (arr[j] < arr[minIndex]) {
+       minIndex = j;
+     }
+   }
+   [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+ }
+ console.log(arr);
+}
+
+
 var arr = [1,8,9,5,32,1,2,2,44,3,2]
-console.log(sort(arr))
+selectSort(arr)
 
   </script>
 </body>
