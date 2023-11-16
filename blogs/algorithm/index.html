@@ -7,42 +7,26 @@
 </head>
 <body>
   <script>
-    /**
-     * 选择排序
-    */
-    function selectSort(arrs){
-      const len = arrs.length;
-      for(let i =0 ; i < len -1; i++) {
-        let min = i
-        for(let j = i+1; j < len;j++){
-          if(arrs[j] < arrs[min]) {
-            min = j
-          }
+function quickSort(arr) {
+    if (arr.length <= 1) {
+        return arr;
+    }
+    let pivotIndex = Math.floor(arr.length / 2); // 找到基准数
+    let pivot = arr.splice(pivotIndex, 1)[0]; // 删除基准数，并获取
+    let left = [];
+    let right = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < pivot) { // 比基准数小的放在left数组
+            left.push(arr[i]);
+        } else { // 比基准数大的放在right数组
+            right.push(arr[i]);
         }
-        [arrs[i],arrs[min]] = [arrs[min],arrs[i]]
-      }
-
-console.log(arrs)
-  }
-
-  function selectionSort(arr) {
- const len = arr.length;
- for (let i = 0; i < len - 1; i++) {
-   let minIndex = i;
-   for (let j = i + 1; j < len; j++) {
-     if (arr[j] < arr[minIndex]) {
-       minIndex = j;
-     }
-   }
-   [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
- }
- console.log(arr);
+    }
+    return quickSort(left).concat([pivot], quickSort(right)); // 递归调用
 }
-
-
 var arr = [1,8,9,5,32,1,2,2,44,3,2]
-selectSort(arr)
-
+const res = quickSort(arr,0,arr.length-1)
+console.log(res)
   </script>
 </body>
 </html>
