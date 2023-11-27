@@ -7,37 +7,42 @@
 </head>
 <body>
   <script>
- function swap(nums,left,right){
-  let temp = nums[left];
-  nums[left] = nums[right];
-  nums[right] = temp;
- }   
 
-function quickSort(nums,left,right){
-// 子数组长度为 1 时终止递归
-if (left >= right) return;
-let i = left,j = right;
-while(i < j){
-
-  while(i < j && nums[j] >= nums[left]) {
-    j-=1
+function mergeSort(arrs){
+  if(arrs.length === 1){
+    return arrs
   }
+  let mid = Math.floor((arrs.length - 1)/2);
+  let left = arrs.slice(0,mid+1);
+  let right = arrs.slice(mid+1);
 
-  while(i < j && nums[i] <= nums[left]) {
-    i+=1
-  }
-swap(nums,i,j)
-}
-swap(nums,left,i)
-quickSort(nums,left,i-1)
-quickSort(nums,i+1,right)
-return nums
+ 
+  return sort(mergeSort(left),mergeSort(right))
 }
 
-const arr = [1,7,2,5,2,9,88]
+function sort(left,right){
+let  res = [];
+let l = 0,r = 0
+while(l<left.length&& r < right.length) {
+if(left[l] < right[r]){
+  res.push(left[l])
+  l++
+} else {
+  res.push(right[r])
+  r++
+}
+}
+ if(l<left.length){
+  res.push(...left.slice(l))
+} else {
+  res.push(...right.slice(r))
+}
+return res
+}
 
-console.log(quickSort(arr,0,arr.length-1))
-
+var arr = [1,2,8,4,2,3,6,99,5,24,56]
+var r= mergeSort(arr)
+console.log(r)
   </script>
 </body>
 </html>
