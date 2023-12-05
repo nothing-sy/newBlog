@@ -8,41 +8,8 @@
 <body>
   <script>
 
-function mergeSort(arrs){
-  if(arrs.length === 1){
-    return arrs
-  }
-  let mid = Math.floor((arrs.length - 1)/2);
-  let left = arrs.slice(0,mid+1);
-  let right = arrs.slice(mid+1);
 
- 
-  return sort(mergeSort(left),mergeSort(right))
-}
 
-function sort(left,right){
-let  res = [];
-let l = 0,r = 0
-while(l<left.length&& r < right.length) {
-if(left[l] < right[r]){
-  res.push(left[l])
-  l++
-} else {
-  res.push(right[r])
-  r++
-}
-}
- if(l<left.length){
-  res.push(...left.slice(l))
-} else {
-  res.push(...right.slice(r))
-}
-return res
-}
-
-var arr = [1,2,8,4,2,3,6,99,5,24,56]
-var r= mergeSort(arr)
-console.log(r)
   </script>
 </body>
 </html>
