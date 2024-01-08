@@ -7,7 +7,7 @@ categories:
  - vite
 ---
 
-:::场景前提
+:::tip 场景
 在vue3.3+版本之前，vue会自动根据文件名生成组件名。
 但在实际开发过程中，会有许多index.vue文件，这时候需要我们重定义组件名。
 :::
@@ -36,7 +36,7 @@ export default {
 这样就完成了简化，只需要在setup中写name属性即可覆盖默认的组件名称
 
 
-:::优化插件契机
+:::tip 优化插件契机
 在vue3.3+之前，@vue/compiler-sfc模块是无法解析外部文件引入类型的，比如： type.ts 导出了 `export type Props`
 无法在`index.vue`直接使用`defineProps<Props>()`，会提示找不到资源
 :::
