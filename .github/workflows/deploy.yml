@@ -16,7 +16,7 @@ jobs:
         npm i
         npm run build
     - name: upload pages artifact
-      uses: actions/upload-pages-artifact@v1.0.7
+      uses: actions/upload-pages-artifact@v3
       with:
         name: github-pages
         path: .vuepress/dist/
