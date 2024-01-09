@@ -4,8 +4,8 @@ on:
     branches:
     - master
 jobs:
-  publish_blog:
-    name: publish blog
+  build_blog:
+    name: build blog
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -22,7 +22,7 @@ jobs:
         path: .vuepress/dist/
 
   deploy:
-    needs: publish_blog
+    needs: build_blog
     permissions:
       pages: write      # to deploy to Pages
       id-token: write   # to verify the deployment originates from an appropriate source
@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1.2.4
+        uses: actions/deploy-pages@v4
       
     
       
