@@ -41,7 +41,7 @@ var scene = new BABYLON.Scene(engine);
 // 创建相机
 var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
 camera.setTarget(BABYLON.Vector3.Zero());
-camera.attachControl(canvas, true);
+camera.attachControl();
 ```
 
 ## 创建渲染器
