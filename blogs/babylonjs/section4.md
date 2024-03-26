@@ -46,5 +46,6 @@ keyFrames.push({
 });
 
 animate.setKeys(keyFrames);
-mesh.animations.push(animate)
+sphere.animations.push(animate)
+scene.beginAnimation(sphere,0,60,false,0.3)
 ```
