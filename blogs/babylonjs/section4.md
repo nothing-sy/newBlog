@@ -6,7 +6,7 @@ categories:
 ---
 
 
-# 交互
+## 交互
 ```js
 // 创建一个简单的球体交互
 var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
@@ -23,7 +23,7 @@ sphere.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.Action
 ```
 
 
-# 动画
+## 动画
 
 ```js
 // 创建一个简单球体动画例子
