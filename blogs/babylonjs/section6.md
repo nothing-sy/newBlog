@@ -9,14 +9,14 @@ categories:
 局部坐标系则是每个mesh都会存在，原点在中心，会随着网格的位置变更而变更。同时也可以通过调用transformnode和矩阵方式去改变原点在局部坐标系中的位置。此篇中我们不做详细介绍
 
 
-## 关于ArcRotateCamera中，坐标系和旋转的关系
+## ArcRotateCamera坐标系和旋转的关系
 
 在ArcRotateCamera中，被观察的物体被设置在某个位置，而相机则围绕着这个物体进行旋转。
 
 在这类相机中引入了alpha和beta两个参数，分别代表相机绕Y轴和X轴旋转的角度。详情看图：
 ![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/arc.png?raw=true)
 
-
+## 创建辅助坐标系
 
 在babylon中没有内置的坐标系创建功能,需要通过其他方式创建。比如：
 
