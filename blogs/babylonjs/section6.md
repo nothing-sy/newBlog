@@ -14,7 +14,7 @@ categories:
 在ArcRotateCamera中，被观察的物体被设置在某个位置，而相机则围绕着这个物体进行旋转。
 
 在这类相机中引入了alpha和beta两个参数，分别代表相机绕Y轴和X轴旋转的角度。详情看图：
-![image](https://github.com/nothing-sy/newBlog/tree/master/blogs/babylonjs/imgs/arc.png?raw=true)
+![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/arc.png?raw=true)
 
 
 
