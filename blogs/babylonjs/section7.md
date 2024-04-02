@@ -27,14 +27,13 @@ Answers:
 :::
 
 下面是参考图：
-![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/rotation1.png?raw=true)
 
 ![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/rotation2.png?raw=true)
 
 
 ## 详细图解分析
 
->旋转方法可以直接更改rotation或者调用addrotation方法，以下的代码中执行结果不一致：
+>旋转方法可以直接更改rotation或者调用addrotation方法
 
 ```js
 // 第一种
@@ -56,7 +55,7 @@ box.addRotation(Math.PI/2,0,0).addRotation(0,Math.PI/2,0)
 
 ![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/rotation3.png?raw=true)
 
-按上图展示，如果我希望三角形能正对着我，底边平行于 世界坐标轴的X轴。理论上我应该只要绕此时local的Y轴旋转即可达到目的
+按上图展示，如果我希望三角形底边平行于 世界坐标轴的X轴。理论上只要绕local的Y轴旋转即可达到目的
 
 我们从背面看：
 ![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/rotation4.png?raw=true)
@@ -64,7 +63,7 @@ box.addRotation(Math.PI/2,0,0).addRotation(0,Math.PI/2,0)
 2. 执行`box.rotation.y = Math.PI / 2`，却得到了意料之外的结果
 ![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/rotation5.png?raw=true)
 
-> 因为上面说的，babylon始终先执行Y轴的旋转，再到X,Y。
+> 因为上面说的，babylon始终先执行Y轴的旋转，再到X,Z。
 
 那我们来看看，按照Y,X的顺序是怎样的：
 
@@ -72,10 +71,10 @@ box.addRotation(Math.PI/2,0,0).addRotation(0,Math.PI/2,0)
 
 ![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/rotation6.png?raw=true)
 
-可以看到，根据Y，【逆时针=》起点往正轴看】旋转了90度。
+可以看到，根据Y轴逆时针旋转了90度。（记住所说的逆时针是从起点向正轴方向看的逆时针）
 
 此时local已经改变，如果继续`box.rotation.x = Math.PI / 2`， 我们就会得到跟`第2点`图中所示结果。因此证明了，mesh的旋转确实是以local为参考，按Y,X,Z轴顺序改变的。
 
-这种有违直觉的结果，在实际开发中，可能会导致一些问题。因此，还有一个办法，通过addRotation，通过这个方法的连续调用，可以确保按正确的顺序执行。`box.addRotation(Math.PI/2,0,0).addRotation(0,Math.PI/2,0)`。此时会先按照X轴旋转，再按照Y轴旋转。也就是在文章`第1点`执行完以后，按Y轴旋转，就得到了我们想要的结果。
+这种有违直觉的结果，在实际开发中，可能会导致一些问题。因此，还有一个办法，通过调用addRotation方法，可以确保按正确的顺序执行。`box.addRotation(Math.PI/2,0,0).addRotation(0,Math.PI/2,0)`。此时会先按照X轴旋转，再按照Y轴旋转。也就是在文章`第1点`执行完以后，按Y轴旋转，就得到了我们想要的结果。过程参考`第1点的两张图`
 
 ![image](https://github.com/nothing-sy/newBlog/blob/master/blogs/babylonjs/imgs/rotation7.png?raw=true)
