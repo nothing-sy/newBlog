@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/@vueuse/shared@10.9.0/index.iife.min.js"></script>
+
+  <script src="https://unpkg.com/@vueuse/core@10.9.0/index.iife.min.js"></script>
+</head>
+<body>
+
+
+  <button id="btn">复制</button>
+
+  <script>
+    console.log(window,window.VueUse)
+    const { x, y } = VueUse.useMouse()
+    console.log(x, y)
+
+    document.getElementById('btn').addEventListener('click', () => {
+      console.log('clicked')
+     
+      console.log(Navigator)
+      debugger
+      Navigator.clipboard.write('复制成功')
+    })
+    
+    </script>
+</body>
+</html>
