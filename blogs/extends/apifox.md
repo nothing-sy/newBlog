@@ -38,22 +38,22 @@ Apifox集成了许多现有的工具，如Swagger、Postman、Mock、JMeter等�
 
 在Apifox中创建项目，以此管理不同项目的接口。
 
-![image](https://github.com/nothing-sy/newBlog/.vuepress/public/images/图片1.png?raw=true)
+![image](https://github.com/nothing-sy/newBlog/blob/master/assets/apifox/图片1.png?raw=true)
 
 ## 2、导入swagger url
-![image](https://github.com/nothing-sy/newBlog/.vuepress/public/images/图片2.png?raw=true)
+![image](https://github.com/nothing-sy/newBlog/blob/master/assets/apifox/图片2.png?raw=true)
 
 上图中是我们日常开发中使用到的swagger文档， 但这个url地址并非是我们需要的，我们需要的是path中对应的地址，不同的服务可能存在不同的地址。具体以实际为准。
 
 Swagger url直连的地址一般是   path/v2/api-docs (swagger分为v1,v2,v3版本，目前使用的事v2版本)
 
-![image](https://github.com/nothing-sy/newBlog/.vuepress/public/images/图片3.png?raw=true)
+![image](https://github.com/nothing-sy/newBlog/blob/master/assets/apifox/图片3.png?raw=true)
 
 点击导入即可看到在[path]路径下部署的服务接口。 按需导入。
 
 至此，接口已经可以使用。点击运行，即可返回mock生成的数据
 
-![image](https://github.com/nothing-sy/newBlog/.vuepress/public/images/图片4.png?raw=true)
+![image](https://github.com/nothing-sy/newBlog/blob/master/assets/apifox/图片4.png?raw=true)
 
 
 我们可以通过返回的数据，去生成typescript的类型
@@ -64,7 +64,7 @@ Swagger url直连的地址一般是   path/v2/api-docs (swagger分为v1,v2,v3版
 
 前面步骤中已经有了mock的接口并运行起来，当我们要调试接口的时候，需要定义一个规范，以etrm项目为例,  大部分接口以/app/ess 开头（具体以实际项目为准）， 所以我们定一个规范，对于apifox中的mock接口，以 /app/ess/mock开头，并重定向到apifox 的mock地址，该地址可以在配置中找到。
 
-![image](https://github.com/nothing-sy/newBlog/.vuepress/public/images/图片5.png?raw=true)
+![image](https://github.com/nothing-sy/newBlog/blob/master/assets/apifox/图片5.png?raw=true)
 
 > 下面是vue.config.js中的配置
 
@@ -84,4 +84,4 @@ proxy: {
 
 配置完成后，即可直接调用运行中的mock。
 
-![image](https://github.com/nothing-sy/newBlog/.vuepress/public/images/图片6.png?raw=true)
+![image](https://github.com/nothing-sy/newBlog/blob/master/assets/apifox/图片6.png?raw=true)
