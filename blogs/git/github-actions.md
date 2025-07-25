@@ -9,7 +9,7 @@ categories:
 本节主要讲解，如何把一个博客项目，通过workflows 自动构建并发布到github pages
 
 - 你将了解到 YAML的基础语法
-- github actions 的基础使用
+- github actions 的基础使 x用
 :::
 
 ## 需求
