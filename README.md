@@ -6,7 +6,7 @@ modules:
   - Blog
 banner: # banner 模块的配置
   heroText: nothing
-  tagline: 记录一些人生过程中的理解、杂谈，还有...
+  tagline: 记录问题
   heroImage: /logo.jpg
   heroImageStyle:
     margin: 0 auto 2rem
